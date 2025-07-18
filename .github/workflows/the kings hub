@@ -1,0 +1,15 @@
+unzip Build-and-Deploy-Ecommerce-Website-main.zip -d site1
+unzip KingsHub_Ecommerce_Blueprint.zip -d site2
+mkdir KingsHub_Merged
+cp -r site1/Build-and-Deploy-Ecommerce-Website-main/* KingsHub_Merged/
+cp -r site2/assets/* KingsHub_Merged/assets/
+cp site2/index.html KingsHub_Merged/index.html
+cp -r site2/pages/* KingsHub_Merged/pages/
+grep -rl "OldBrandName" KingsHub_Merged/ | xargs sed -i 's/OldBrandName/KingsHub/g'
+grep -rl "#0055cc" KingsHub_Merged/ | xargs sed -i 's/#0055cc/#6A0DAD/g'
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KingsHub - Your Trusted Ecommerce Platform">
+cd KingsHub_Merged
+python3 -m http.server 8080
+cd KingsHub_Merged
+zip -r ../KingsHub_Final_Bundle.zip .
